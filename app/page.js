@@ -202,6 +202,38 @@ export default function Home() {
         </div>
       </section>
 
+{/* Email Capture Section */}
+<section className="py-20 px-6 bg-gray-900">
+  <div className="container mx-auto max-w-2xl text-center">
+    <h2 className="text-3xl md:text-4xl font-black mb-6">
+      Get Early Access
+    </h2>
+    <p className="text-gray-400 mb-8">
+      Be the first to know when we launch. No spam, just savings.
+    </p>
+    <form 
+      className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto"
+      onSubmit={(e) => {
+        e.preventDefault();
+        alert('Thanks! We\'ll be in touch soon.');
+      }}
+    >
+      <input 
+        type="email" 
+        placeholder="your@email.com"
+        required
+        className="flex-1 px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-red-600"
+      />
+      <button 
+        type="submit"
+        className="bg-red-600 px-8 py-3 rounded-lg font-bold hover:bg-red-700 transition"
+      >
+        Get Access
+      </button>
+    </form>
+  </div>
+</section>
+
       {/* Footer */}
       <footer className="border-t border-gray-900 py-12 px-6">
         <div className="container mx-auto max-w-6xl text-center text-gray-500">
