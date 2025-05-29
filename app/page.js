@@ -16,48 +16,48 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Header */}
-      <header className="fixed top-0 w-full bg-black/90 backdrop-blur z-50 border-b border-gray-900">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-2">
-              <svg className="w-8 h-8 text-red-600" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
-              </svg>
-              <span className="text-xl font-bold">BleedTime</span>
-            </div>
-            
-            {/* Desktop Menu */}
-            <nav className="hidden md:flex items-center space-x-8">
-              <a href="#features" className="hover:text-red-500 transition">Features</a>
-              <a href="#pricing" className="hover:text-red-500 transition">Pricing</a>
-              <a href="/dashboard" className="bg-red-600 px-6 py-2 rounded-lg hover:bg-red-700 transition">
-                Start Free Trial
-              </a>
-            </nav>
+<header className="fixed top-0 w-full bg-black/90 backdrop-blur z-50 border-b border-gray-900">
+  <div className="container mx-auto px-6 py-4">
+    <div className="flex justify-between items-center">
+      <div className="flex items-center space-x-2">
+        <svg className="w-8 h-8 text-red-600" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+        </svg>
+        <span className="text-xl font-bold">BleedTime</span>
+      </div>
+      
+      {/* Desktop Menu */}
+      <nav className="hidden md:flex items-center space-x-8">
+        <a href="#features" className="text-gray-300 hover:text-white transition">Features</a>
+        <a href="#pricing" className="text-gray-300 hover:text-white transition">Pricing</a>
+        <a href="/dashboard" className="bg-red-600 px-6 py-2 rounded-lg hover:bg-red-700 transition font-semibold">
+          Start Free Trial
+        </a>
+      </nav>
 
-            {/* Mobile Menu Button */}
-            <button 
-              className="md:hidden"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-          </div>
-        </div>
+      {/* Mobile Menu Button */}
+      <button 
+        className="md:hidden text-white"
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+      >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
 
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden bg-gray-900 border-t border-gray-800">
-            <a href="#features" className="block px-6 py-3 hover:bg-gray-800">Features</a>
-            <a href="#pricing" className="block px-6 py-3 hover:bg-gray-800">Pricing</a>
-            <a href="/dashboard" className="block px-6 py-3 bg-red-600 hover:bg-red-700">
-              Start Free Trial
-            </a>
-          </div>
-        )}
-      </header>
+  {/* Mobile Menu */}
+  {isMenuOpen && (
+    <div className="md:hidden bg-black border-t border-gray-800">
+      <a href="#features" className="block px-6 py-3 text-gray-300 hover:bg-gray-900">Features</a>
+      <a href="#pricing" className="block px-6 py-3 text-gray-300 hover:bg-gray-900">Pricing</a>
+      <a href="/dashboard" className="block px-6 py-3 bg-red-600 hover:bg-red-700 font-semibold">
+        Start Free Trial
+      </a>
+    </div>
+  )}
+</header>
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6">
