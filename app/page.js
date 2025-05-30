@@ -243,16 +243,3 @@ export default function Home() {
     </div>
   );
 }
-```
-
-## 🎨 ELEMENTI BANKSY:
-
-1. **Stencil Typography** - Font Impact, skewed, con ombre multiple
-2. **Spray Paint Effects** - Blur e gradient per effetto aerosol
-3. **Rotated Elements** - Tutto leggermente storto, come street art
-4. **High Contrast** - Nero/Rosso/Bianco only
-5. **Political Message** - "THE SYSTEM IS BROKEN", "SLAVES", etc.
-6. **Rough Textures** - SVG filters per effetto carta ruvida
-7. **Graffiti Tags** - Elementi che sembrano scritti con spray
-
-**Committa e vedrai BleedTime trasformato in un'opera d'arte urbana!** 🎭
