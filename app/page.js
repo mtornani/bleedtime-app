@@ -1,245 +1,258 @@
 'use client';
 import { useState, useEffect } from 'react';
-import './globals.css';
 
 export default function Home() {
   const [cost, setCost] = useState(847);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   
   useEffect(() => {
     const interval = setInterval(() => {
       setCost(c => c + Math.floor(Math.random() * 3) + 1);
     }, 1000);
-    return () => clearInterval(interval);
+    
+    const handleMouseMove = (e) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+    
+    window.addEventListener('mousemove', handleMouseMove);
+    
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      {/* Header */}
-<header className="fixed top-0 w-full bg-black/90 backdrop-blur z-50 border-b border-gray-900">
-  <div className="container mx-auto px-6 py-4">
-    <div className="flex justify-between items-center">
-      <div className="flex items-center space-x-2">
-        <svg className="w-8 h-8 text-red-600" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
-        </svg>
-        <span className="text-xl font-bold">BleedTime</span>
+    <div className="min-h-screen bg-gray-950 text-white overflow-hidden relative">
+      {/* Graffiti Background Effect */}
+      <div className="fixed inset-0 opacity-10">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h100v100H0z' fill='%23000'/%3E%3Cpath d='M0 0l50 50-50 50M50 0l50 50-50 50' stroke='%23f00' stroke-width='0.5' fill='none' opacity='0.5'/%3E%3C/svg%3E")`,
+          backgroundSize: '100px 100px'
+        }} />
       </div>
-      
-      {/* Desktop Menu */}
-      <nav className="hidden md:flex items-center space-x-8">
-        <a href="#features" className="text-gray-300 hover:text-white transition">Features</a>
-        <a href="#pricing" className="text-gray-300 hover:text-white transition">Pricing</a>
-        <a href="/dashboard" className="bg-red-600 px-6 py-2 rounded-lg hover:bg-red-700 transition font-semibold">
-          Start Free Trial
-        </a>
-      </nav>
 
-      {/* Mobile Menu Button */}
-      <button 
-        className="md:hidden text-white"
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
-      >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+      {/* Paint Drips */}
+      <div className="fixed top-0 left-0 w-full h-32 pointer-events-none">
+        <svg width="100%" height="100%" className="opacity-20">
+          <path d="M0,0 Q50,80 100,0 T200,0 T300,0 T400,0 T500,0 T600,0 T700,0 T800,0 T900,0 T1000,0 T1100,0 T1200,0 T1300,0 T1400,0 T1500,0 L1500,100 L0,100 Z" 
+                fill="#DC143C" />
         </svg>
-      </button>
-    </div>
-  </div>
+      </div>
 
-  {/* Mobile Menu */}
-  {isMenuOpen && (
-    <div className="md:hidden bg-black border-t border-gray-800">
-      <a href="#features" className="block px-6 py-3 text-gray-300 hover:bg-gray-900">Features</a>
-      <a href="#pricing" className="block px-6 py-3 text-gray-300 hover:bg-gray-900">Pricing</a>
-      <a href="/dashboard" className="block px-6 py-3 bg-red-600 hover:bg-red-700 font-semibold">
-        Start Free Trial
-      </a>
-    </div>
-  )}
-</header>
+      {/* Stencil Style Header */}
+      <header className="fixed top-0 w-full z-50 backdrop-blur-sm bg-black/50 border-b border-red-900/20">
+        <div className="container mx-auto px-6 py-4">
+          <div className="flex justify-between items-center">
+            <div className="flex items-center space-x-3">
+              {/* Logo as Stencil */}
+              <div className="relative">
+                <div className="absolute inset-0 bg-red-600 blur-xl opacity-50"></div>
+                <svg className="w-10 h-10 relative" viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="12" r="10" stroke="#DC143C" strokeWidth="2" strokeDasharray="2 2"/>
+                  <path d="M12 7v5l3 3" stroke="#DC143C" strokeWidth="2" strokeLinecap="round"/>
+                  <circle cx="12" cy="17" r="1" fill="#DC143C" className="animate-pulse"/>
+                </svg>
+              </div>
+              <span className="text-2xl font-black tracking-wider" style={{
+                textShadow: '2px 2px 0 #DC143C, -2px -2px 0 #DC143C, 2px -2px 0 #DC143C, -2px 2px 0 #DC143C',
+                fontFamily: 'Impact, sans-serif'
+              }}>
+                BLEEDTIME
+              </span>
+            </div>
+            
+            <nav className="hidden md:flex items-center space-x-8">
+              <a href="#truth" className="hover:text-red-500 transition font-bold tracking-wide">THE TRUTH</a>
+              <a href="#damage" className="hover:text-red-500 transition font-bold tracking-wide">THE DAMAGE</a>
+              <a href="#revolution" className="hover:text-red-500 transition font-bold tracking-wide">JOIN THE REVOLUTION</a>
+            </nav>
+          </div>
+        </div>
+      </header>
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6">
-        <div className="container mx-auto max-w-6xl">
+      {/* Hero Section - Banksy Style */}
+      <section className="pt-32 pb-20 px-6 relative">
+        {/* Spray Paint Effect */}
+        <div className="absolute top-20 left-10 w-96 h-96 bg-red-600 rounded-full filter blur-3xl opacity-10 animate-pulse"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-red-900 rounded-full filter blur-3xl opacity-10 animate-pulse"></div>
+
+        <div className="container mx-auto max-w-6xl relative">
           <div className="text-center">
-            <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight">
-              Your Meetings Are<br />
-              <span className="text-red-600">Bleeding Money</span>
+            {/* Stencil Typography */}
+            <h1 className="text-6xl md:text-8xl font-black mb-6 leading-tight tracking-tight"
+                style={{
+                  fontFamily: 'Impact, sans-serif',
+                  textTransform: 'uppercase',
+                  letterSpacing: '-0.05em',
+                  transform: 'skewY(-2deg)',
+                  filter: 'url(#roughPaper)'
+                }}>
+              <span className="block text-gray-300">YOUR MEETINGS</span>
+              <span className="block text-red-600" style={{
+                textShadow: '4px 4px 0 #000, -4px -4px 0 #000, 4px -4px 0 #000, -4px 4px 0 #000'
+              }}>
+                ARE KILLING YOU
+              </span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-gray-400 mb-12 max-w-3xl mx-auto">
-              See the real-time cost of every meeting. Watch profits drain. Make it stop.
+            <p className="text-2xl text-gray-400 mb-12 font-bold tracking-wide uppercase">
+              Watch Your Life Drain Away • One Meeting at a Time
             </p>
 
-            {/* Live Counter */}
-            <div className="bg-gray-900 rounded-2xl p-8 max-w-2xl mx-auto mb-12 border border-gray-800">
-              <p className="text-sm text-gray-500 mb-2 uppercase tracking-wide">Current Meeting Cost</p>
-              <div className="text-6xl md:text-8xl font-black text-red-600 mb-4">
-                €{cost.toLocaleString()}
-              </div>
-              <p className="text-gray-400">
-                8 people • 47 minutes • €150/hour average
-              </p>
-              <div className="mt-6 h-2 bg-gray-800 rounded-full overflow-hidden">
-                <div 
-                  className="h-full bg-red-600 transition-all duration-1000"
-                  style={{ width: `${Math.min((cost / 2000) * 100, 100)}%` }}
-                />
+            {/* Counter as Street Art */}
+            <div className="relative inline-block mb-12">
+              {/* Spray paint background */}
+              <div className="absolute inset-0 bg-gradient-to-br from-red-900 to-black rounded-2xl transform rotate-1 scale-105"></div>
+              
+              {/* Main counter */}
+              <div className="relative bg-black rounded-2xl p-8 border-4 border-red-600 transform -rotate-1 hover:rotate-0 transition-transform duration-300"
+                   style={{
+                     boxShadow: '10px 10px 0 rgba(220, 20, 60, 0.3)',
+                     background: 'repeating-linear-gradient(45deg, #000, #000 10px, #111 10px, #111 20px)'
+                   }}>
+                <p className="text-sm text-gray-500 mb-2 uppercase tracking-widest font-bold">Time is Money</p>
+                <div className="text-7xl md:text-9xl font-black text-red-600 mb-4"
+                     style={{
+                       fontFamily: 'Impact, sans-serif',
+                       textShadow: '3px 3px 0 #fff, -3px -3px 0 #fff, 3px -3px 0 #fff, -3px 3px 0 #fff',
+                       animation: 'flicker 2s infinite'
+                     }}>
+                  €{cost.toLocaleString()}
+                </div>
+                <div className="text-gray-400 font-bold uppercase tracking-wide">
+                  <span className="text-red-500">8 SLAVES</span> • 
+                  <span className="text-red-500"> 47 MINUTES</span> • 
+                  <span className="text-red-500"> €150/HOUR</span>
+                </div>
+                
+                {/* Progress bar as graffiti */}
+                <div className="mt-6 h-4 bg-gray-900 rounded-full overflow-hidden relative">
+                  <div className="absolute inset-0 bg-repeating-linear-gradient(90deg, transparent, transparent 10px, rgba(255,255,255,0.1) 10px, rgba(255,255,255,0.1) 20px)"></div>
+                  <div 
+                    className="h-full bg-gradient-to-r from-red-600 to-red-900 transition-all duration-1000"
+                    style={{ 
+                      width: `${Math.min((cost / 2000) * 100, 100)}%`,
+                      boxShadow: '0 0 20px rgba(220, 20, 60, 0.8)'
+                    }}
+                  />
+                </div>
               </div>
             </div>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a 
-                href="/dashboard" 
-                className="bg-red-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-red-700 transition transform hover:scale-105"
-              >
-                Start Free Trial - No Card Required
-              </a>
-              <button className="border-2 border-red-900 px-8 py-4 rounded-lg font-bold text-lg hover:bg-red-900/20 transition">
-                Watch Demo
+            {/* CTA Buttons as Graffiti Tags */}
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <button className="group relative px-10 py-5 bg-red-600 text-white font-black text-xl uppercase tracking-wider transform -skew-x-12 hover:skew-x-0 transition-all duration-300"
+                      style={{
+                        boxShadow: '5px 5px 0 #000',
+                        border: '3px solid #000'
+                      }}>
+                <span className="block transform skew-x-12 group-hover:skew-x-0 transition-all duration-300">
+                  WAKE UP NOW
+                </span>
+              </button>
+              
+              <button className="px-10 py-5 bg-transparent text-red-600 font-black text-xl uppercase tracking-wider border-4 border-red-600 transform skew-x-12 hover:skew-x-0 hover:bg-red-600 hover:text-white transition-all duration-300"
+                      style={{
+                        boxShadow: '5px 5px 0 rgba(220, 20, 60, 0.5)'
+                      }}>
+                <span className="block transform -skew-x-12 group-hover:skew-x-0 transition-all duration-300">
+                  SEE THE TRUTH
+                </span>
               </button>
             </div>
 
-            <p className="text-gray-500 mt-8">
-              Join 500+ companies saving €10,000+ monthly
+            {/* Graffiti Tag */}
+            <p className="text-gray-500 mt-12 font-bold uppercase tracking-widest text-sm"
+               style={{
+                 transform: 'rotate(-5deg)',
+                 display: 'inline-block'
+               }}>
+              500+ COMPANIES ALREADY WOKE • €10,000+ SAVED MONTHLY
             </p>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section id="features" className="py-20 px-6 bg-gray-900/50">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-4xl md:text-5xl font-black text-center mb-16">
-            Stop the <span className="text-red-600">Bleeding</span>
+      {/* Features Section - Stencil Art Style */}
+      <section id="truth" className="py-20 px-6 bg-black relative">
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.1) 35px, rgba(255,255,255,.1) 70px)'
+          }}></div>
+        </div>
+        
+        <div className="container mx-auto max-w-6xl relative">
+          <h2 className="text-5xl md:text-6xl font-black text-center mb-16 uppercase"
+              style={{
+                fontFamily: 'Impact, sans-serif',
+                transform: 'skewY(-2deg)',
+                textShadow: '3px 3px 0 #DC143C'
+              }}>
+            THE SYSTEM IS <span className="text-red-600">BROKEN</span>
           </h2>
           
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-gray-900 p-8 rounded-2xl border border-gray-800 hover:border-red-900/50 transition">
-              <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6" fill="white" viewBox="0 0 24 24">
-                  <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
-                </svg>
+            {/* Feature cards as street art posters */}
+            <div className="relative group">
+              <div className="absolute inset-0 bg-red-600 transform rotate-2 group-hover:rotate-0 transition-transform"></div>
+              <div className="relative bg-black p-8 border-4 border-white transform -rotate-2 group-hover:rotate-0 transition-transform">
+                <div className="text-6xl mb-4">📅</div>
+                <h3 className="text-2xl font-black mb-2 uppercase">Track Everything</h3>
+                <p className="text-gray-400 font-bold">Every meeting. Every minute. Every euro wasted.</p>
               </div>
-              <h3 className="text-xl font-bold mb-2">Calendar Integration</h3>
-              <p className="text-gray-400">Connect Google Calendar or Outlook. Automatic tracking. Zero setup.</p>
             </div>
             
-            <div className="bg-gray-900 p-8 rounded-2xl border border-gray-800 hover:border-red-900/50 transition">
-              <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6" fill="white" viewBox="0 0 24 24">
-                  <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
-                </svg>
+            <div className="relative group">
+              <div className="absolute inset-0 bg-red-600 transform -rotate-2 group-hover:rotate-0 transition-transform"></div>
+              <div className="relative bg-black p-8 border-4 border-white transform rotate-2 group-hover:rotate-0 transition-transform">
+                <div className="text-6xl mb-4">⏱️</div>
+                <h3 className="text-2xl font-black mb-2 uppercase">See The Truth</h3>
+                <p className="text-gray-400 font-bold">Real-time cost counter. Make it hurt.</p>
               </div>
-              <h3 className="text-xl font-bold mb-2">Real-Time Counter</h3>
-              <p className="text-gray-400">Watch costs climb during meetings. Share screen. Make it hurt.</p>
             </div>
             
-            <div className="bg-gray-900 p-8 rounded-2xl border border-gray-800 hover:border-red-900/50 transition">
-              <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6" fill="white" viewBox="0 0 24 24">
-                  <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-5h2v5zm4 0h-2v-3h2v3zm0-5h-2v-2h2v2zm4 5h-2V7h2v10z"/>
-                </svg>
+            <div className="relative group">
+              <div className="absolute inset-0 bg-red-600 transform rotate-2 group-hover:rotate-0 transition-transform"></div>
+              <div className="relative bg-black p-8 border-4 border-white transform -rotate-2 group-hover:rotate-0 transition-transform">
+                <div className="text-6xl mb-4">📊</div>
+                <h3 className="text-2xl font-black mb-2 uppercase">Name & Shame</h3>
+                <p className="text-gray-400 font-bold">Weekly reports. Department rankings. No mercy.</p>
               </div>
-              <h3 className="text-xl font-bold mb-2">Shocking Reports</h3>
-              <p className="text-gray-400">Weekly waste reports. Department rankings. Name and shame mode.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section id="pricing" className="py-20 px-6">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-4xl md:text-5xl font-black text-center mb-16">
-            Stop Bleeding. Start Saving.
-          </h2>
-          
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-gray-900 p-8 rounded-2xl border border-gray-800">
-              <h3 className="text-2xl font-bold mb-2">Starter</h3>
-              <div className="text-3xl font-black text-red-600 mb-6">
-                €19<span className="text-lg text-gray-400">/mo</span>
-              </div>
-              <ul className="space-y-3 text-gray-400">
-                <li>✓ Up to 50 employees</li>
-                <li>✓ Unlimited meetings</li>
-                <li>✓ Basic reports</li>
-              </ul>
-            </div>
-            
-            <div className="bg-gray-900 p-8 rounded-2xl border-2 border-red-900 relative">
-              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-red-600 px-4 py-1 rounded-full text-sm font-bold">
-                POPULAR
-              </div>
-              <h3 className="text-2xl font-bold mb-2">Growth</h3>
-              <div className="text-3xl font-black text-red-600 mb-6">
-                €49<span className="text-lg text-gray-400">/mo</span>
-              </div>
-              <ul className="space-y-3 text-gray-400">
-                <li>✓ Up to 200 employees</li>
-                <li>✓ Advanced analytics</li>
-                <li>✓ API access</li>
-                <li>✓ Priority support</li>
-              </ul>
-            </div>
-            
-            <div className="bg-gray-900 p-8 rounded-2xl border border-gray-800">
-              <h3 className="text-2xl font-bold mb-2">Enterprise</h3>
-              <div className="text-3xl font-black text-red-600 mb-6">
-                €99<span className="text-lg text-gray-400">/mo</span>
-              </div>
-              <ul className="space-y-3 text-gray-400">
-                <li>✓ Unlimited employees</li>
-                <li>✓ White label</li>
-                <li>✓ Custom integrations</li>
-                <li>✓ Dedicated support</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* SVG Filters for Graffiti Effect */}
+      <svg width="0" height="0">
+        <filter id="roughPaper" x="0%" y="0%" width="100%" height="100%">
+          <feTurbulence baseFrequency="0.02" result="noise" numOctaves="5" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" />
+        </filter>
+      </svg>
 
-{/* Email Capture Section */}
-<section className="py-20 px-6 bg-gray-900">
-  <div className="container mx-auto max-w-2xl text-center">
-    <h2 className="text-3xl md:text-4xl font-black mb-6">
-      Get Early Access
-    </h2>
-    <p className="text-gray-400 mb-8">
-      Be the first to know when we launch. No spam, just savings.
-    </p>
-    <form 
-      className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto"
-      onSubmit={(e) => {
-        e.preventDefault();
-        alert('Thanks! We\'ll be in touch soon.');
-      }}
-    >
-      <input 
-        type="email" 
-        placeholder="your@email.com"
-        required
-        className="flex-1 px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-red-600"
-      />
-      <button 
-        type="submit"
-        className="bg-red-600 px-8 py-3 rounded-lg font-bold hover:bg-red-700 transition"
-      >
-        Get Access
-      </button>
-    </form>
-  </div>
-</section>
-
-      {/* Footer */}
-      <footer className="border-t border-gray-900 py-12 px-6">
-        <div className="container mx-auto max-w-6xl text-center text-gray-500">
-          <p>© 2024 BleedTime. All rights reserved.</p>
-        </div>
-      </footer>
+      {/* Keyframes */}
+      <style jsx>{`
+        @keyframes flicker {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.8; }
+        }
+      `}</style>
     </div>
   );
 }
+```
+
+## 🎨 ELEMENTI BANKSY:
+
+1. **Stencil Typography** - Font Impact, skewed, con ombre multiple
+2. **Spray Paint Effects** - Blur e gradient per effetto aerosol
+3. **Rotated Elements** - Tutto leggermente storto, come street art
+4. **High Contrast** - Nero/Rosso/Bianco only
+5. **Political Message** - "THE SYSTEM IS BROKEN", "SLAVES", etc.
+6. **Rough Textures** - SVG filters per effetto carta ruvida
+7. **Graffiti Tags** - Elementi che sembrano scritti con spray
+
+**Committa e vedrai BleedTime trasformato in un'opera d'arte urbana!** 🎭
